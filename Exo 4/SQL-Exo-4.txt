@@ -1,0 +1,54 @@
+
+> Pour chaque question vous devrez me donner la commande liée à celle-ci
+(Lisez bien le TP dans son intégralité avant de commencer à faire le code des tables, il y a une subtilité !)
+
+1/ Vous créérez une base de donnée de nom 'rpg-game'
+
+2/ Vous créérez les Tables suivantes composées des champs suivants :
+
+@hero :
+> name : chaîne de caractères
+> hp_max : entier
+> mana_max : entier
+> level : entier
+> attack_min : entier
+> attack_max : entier
+> defense : entier
+> ability_resistance : entier
+
+@ability :
+> name : chaîne de caractères
+> mana_cost : entier
+> manaMax : entier
+> damage_min : entier
+> damage_max : entier
+> is_ulti : boolean
+
+@score_board
+> kill : entier
+> death : entier
+> assistance : entier
+
+@team
+> name : chaîne de caractères
+
+@game
+> name : chaîne de caractères
+
+@map
+> name : chaîne de caractères
+> hauteur : entier
+> largeur : entier
+
+ 
+Avant de rédiger le code des tables, il y a plusieurs subtilité : 
+
+"Un Hero a plusieurs Ability" et "Une Ability a plusieurs Hero" (On parle d'une relation ManyToMany)
+"Un score_board a plusieurs Hero" et "Un Hero a un score_board" (On parle d'une relation ManyToOne)
+"Une team a plusieurs Hero" et "Un Hero a une team" (On parle d'une relation ManyToOne)
+"Une game a une map" et "Une map a plusieurs games" (On parle d'une relation ManyToOne)
+
+Comment pensez vous modéliser ça en base de données ?
+(Je veux une réponse à l'écrit dans un premier temps, histoire de vous orientez sur la création)
+
+
