@@ -1,10 +1,20 @@
 
 -------------------------------------------------------------
--- Exemple de gestion des transactions (COMMIT & ROLLBACK) --
+------------- Transactions (COMMIT & ROLLBACK) --------------
 -------------------------------------------------------------
+
+-- Principe :
+-- Une transaction, c'est un ensemble de requêtes qui sont exécutées en un seul bloc.
+-- Ainsi, si une des requêtes du bloc échoue, on peut décider d'annuler tout le bloc de requêtes
+-- (ou de quand même valider les requêtes qui ont réussi).
+
 
 -- Pensez à bien définir un AUTOCOMMIT = 0 avant d'effectuer des TRANSACTION
 SET AUTOCOMMIT = 0;
+
+-- Tant que l’on est en plus en autocommit, chaque modification de donnée devra être commitée pour prendre effet.
+-- Tant que vos modifications ne sont pas validées, vous pouvez à tout moment les annuler (faire un rollback).
+
 
 -- On récupère l'id du pays Malte
 -- Pensez au préalable à en supprimer un... question de doublon, tout ça tout ça
@@ -37,6 +47,25 @@ COMMIT;
 --------------------------------------------------------
 -- Exemple de gestion des transactions avec SAVEPOINT --
 --------------------------------------------------------
+
+-- Jalon de transaction :
+-- Il s’agit d’un point de repère qui permet d’annuler toutes les requêtes exécutées depuis ce jalon
+-- seulement et non toutes les requêtes de la transaction.
+
+START TRANSACTION;
+// traitement 1
+SAVEPOINT jalon1 ; (jalon1 = alias)
+// Traitement 2
+ROLLBACK TO SAVEPOINT jalon1 ;
+// Traitement 3
+COMMIT ;
+
+Dans cette exemple, traitement 2 ne sera pas effectué
+Cependant certaines requêtes ne peuvent pas être « annulées » via la commande ROLLBACK, il s’agit des commandes qui influent sur une structure de données, comme par exemple :
+CREATE DATABASE, DROP DATABASE, CREATE TABLE, ALTER TABLE, RENAME TABLE, DROP TABLE, CREATE INDEX ou encore DROP INDEX.
+
+
+
 
 -- /!\ PhpMyAdmin indiquera une erreur mais ça passe...
 
